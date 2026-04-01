@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -28,12 +28,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?
-  access_token      String?
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?
+  id_token          String? @db.Text
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -61,7 +61,7 @@ model Property {
   name          String
   slug          String          @unique
   tagline       String?
-  description   String
+  description   String          @db.Text
   city          String          // LONDON, DUBAI
   neighborhood  String
   address       String?
@@ -157,8 +157,8 @@ model Booking {
   status          String   @default("PENDING") // PENDING, CONFIRMED, CANCELLED, COMPLETED
 
   // Notes
-  specialRequests String?
-  internalNotes   String?
+  specialRequests String?  @db.Text
+  internalNotes   String?  @db.Text
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -179,11 +179,11 @@ model Enquiry {
   type         String    // STAY, BUY, ADVISORY, GENERAL
   location     String?   // LONDON, DUBAI, BOTH
   budget       String?
-  message      String
+  message      String    @db.Text
 
   // Status
   status       String    @default("NEW") // NEW, RESPONDED, CLOSED
-  internalNotes String?
+  internalNotes String?  @db.Text
 
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
