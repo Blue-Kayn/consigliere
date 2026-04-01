@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Consigliere — Your Man in London & Dubai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0d0d0d;
+            --charcoal: #1a1a1a;
+            --white: #ffffff;
+            --cream: #f9f7f4;
+            --warm-gray: #f5f3f0;
+            --gold: #b8986e;
+            --gold-light: #d4bc94;
+            --gold-dark: #96784a;
+            --gray-300: #d1d1d1;
+            --gray-400: #a0a0a0;
+            --gray-500: #6b6b6b;
+            --gray-600: #4a4a4a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--charcoal);
+            background: var(--white);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            line-height: 1.3;
+        }
+
+        .serif-body {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        .nav-container.scrolled {
+            background: var(--white);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+        }
+
+        .nav-container.dark {
+            background: transparent;
+        }
+
+        .nav-container.dark.scrolled {
+            background: var(--white);
+        }
+
+        .header {
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo svg {
+            height: 70px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.2em;
+            font-weight: 500;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--charcoal);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--black);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--charcoal);
+            color: var(--charcoal);
+        }
+
+        .btn-outline:hover {
+            background: var(--charcoal);
+            color: var(--white);
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 1px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline-light:hover {
+            background: var(--white);
+            color: var(--charcoal);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-dark);
+        }
+
+        .btn-text {
+            background: none;
+            border: none;
+            padding: 0;
+            color: var(--charcoal);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-text:hover {
+            color: var(--gold);
+        }
+
+        .btn-text svg {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-text:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Page Navigation Tabs */
+        .page-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background: var(--warm-gray);
+            padding: 0;
+            position: sticky;
+            top: 76px;
+            z-index: 99;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .page-tab {
+            padding: 1.25rem 3rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-500);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .page-tab:hover {
+            color: var(--charcoal);
+        }
+
+        .page-tab.active {
+            color: var(--charcoal);
+            border-bottom-color: var(--gold);
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Hero - Home */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10rem 2rem 6rem;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(var(--white), transparent);
+        }
+
+        /* Intro Section */
+        .intro {
+            padding: 8rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .intro p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            color: var(--gray-600);
+            line-height: 2;
+        }
+
+        .intro-signature {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-300);
+        }
+
+        .intro-signature span {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--gray-500);
+        }
+
+        /* Services Overview */
+        .services-section {
+            padding: 0;
+        }
+
+        .service-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+        }
+
+        .service-row.reverse {
+            direction: rtl;
+        }
+
+        .service-row.reverse > * {
+            direction: ltr;
+        }
+
+        .service-image {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .service-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem;
+            background: var(--cream);
+        }
+
+        .service-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-content p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            line-height: 1.9;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .service-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .service-features li::before {
+            content: '—';
+            color: var(--gold);
+        }
+
+        /* Locations */
+        .locations-section {
+            padding: 8rem 4rem;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--gray-500);
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .location-card {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .location-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .location-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .location-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent 40%, rgba(0,0,0,0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem;
+            color: var(--white);
+        }
+
+        .location-card h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* Approach Section */
+        .approach-section {
+            padding: 8rem 4rem;
+            background: var(--charcoal);
+            color: var(--white);
+        }
+
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .approach-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .approach-number {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .approach-item h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .approach-item p {
+            font-size: 0.9rem;
+            color: var(--gray-400);
+            line-height: 1.8;
+        }
+
+        /* Properties Section */
+        .properties-section {
+            padding: 6rem 4rem;
+        }
+
+        .properties-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .properties-header h2 {
+            font-size: 2rem;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .property-card {
+            background: var(--white);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .property-image {
+            position: relative;
+            height: 320px;
+            overflow: hidden;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .property-card:hover .property-image img {
+            transform: scale(1.05);
+        }
+
+        .property-tag {
+            position: absolute;
+            top: 1.25rem;
+            left: 1.25rem;
+            background: var(--white);
+            padding: 0.5rem 1rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .property-save {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+
+        .property-save:hover {
+            transform: scale(1.1);
+        }
+
+        .property-content {
+            padding: 1.5rem 0;
+        }
+
+        .property-location {
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-details {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            margin-bottom: 1rem;
+        }
+
+        .property-price {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .property-price span {
+            font-weight: 400;
+            color: var(--gray-400);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 10rem 4rem;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+                        url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80') center/cover fixed;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Info */
+        .contact-bar {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            padding: 3rem 4rem;
+            background: var(--charcoal);
+            color: var(--white);
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-item span {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 5rem 4rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            max-width: 280px;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        /* RENT PAGE */
+        .rent-hero {
+            padding: 12rem 4rem 6rem;
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .rent-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .rent-hero p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Search Box */
+        .search-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-field {
+            flex: 1;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-field:hover {
+            background: var(--warm-gray);
+        }
+
+        .search-field label {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-500);
+            margin-bottom: 0.35rem;
+        }
+
+        .search-field span {
+            font-size: 0.95rem;
+            color: var(--charcoal);
+        }
+
+        .search-divider {
+            width: 1px;
+            height: 50px;
+            background: var(--gray-300);
+        }
+
+        .search-btn {
+            background: var(--charcoal);
+            color: var(--white);
+            border: none;
+            padding: 1.25rem 2.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background: var(--black);
+        }
+
+        /* Filters */
+        .filters-bar {
+            padding: 1.5rem 4rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-300);
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.8rem;
+            border: 1px solid var(--gray-300);
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--charcoal);
+        }
+
+        .filter-btn.active {
+            background: var(--charcoal);
+            color: var(--white);
+            border-color: var(--charcoal);
+        }
+
+        /* BUY PAGE */
+        .buy-hero {
+            padding: 12rem 4rem 6rem;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)),
+                        url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80') center/cover;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .buy-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .buy-hero p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            max-width: 650px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+        }
+
+        .buy-services {
+            padding: 6rem 4rem;
+            background: var(--white);
+        }
+
+        .buy-services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .buy-service-card {
+            padding: 3rem;
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .buy-service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .buy-service-card p {
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Investment Section */
+        .investment-section {
+            padding: 6rem 4rem;
+            background: var(--charcoal);
+            color: var(--white);
+        }
+
+        .investment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .investment-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .investment-content p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--gray-400);
+            margin-bottom: 2rem;
+            line-height: 1.9;
+        }
+
+        .investment-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-number {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ABOUT PAGE */
+        .about-hero {
+            padding: 12rem 4rem 6rem;
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-story {
+            padding: 6rem 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-story p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--gray-600);
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+
+        .about-values {
+            padding: 6rem 4rem;
+            background: var(--charcoal);
+            color: var(--white);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .value-item p {
+            color: var(--gray-400);
+            line-height: 1.8;
+        }
+
+        /* Enquiry Form */
+        .enquiry-section {
+            padding: 6rem 4rem;
+            background: var(--cream);
+        }
+
+        .enquiry-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: var(--gray-600);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--gray-300);
+            background: var(--white);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .service-row {
+                grid-template-columns: 1fr;
+            }
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+            .approach-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .properties-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 1.5rem;
+            }
+            .nav {
+                display: none;
+            }
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+            .approach-grid {
+                grid-template-columns: 1fr;
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            .buy-services-grid {
+                grid-template-columns: 1fr;
+            }
+            .investment-grid {
+                grid-template-columns: 1fr;
+            }
+            .search-container {
+                flex-direction: column;
+            }
+            .search-divider {
+                width: 100%;
+                height: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <div class="nav-container dark" id="navbar">
+        <header class="header">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <svg width="50" height="65" viewBox="0 0 180 230" fill="none">
+                    <text x="90" y="70" text-anchor="middle" font-family="Cinzel, serif" font-size="80" fill="currentColor" font-weight="600">C</text>
+                    <g transform="translate(55, 75) scale(0.023, -0.023) translate(0, -3820)" fill="currentColor">
+                        <path d="M1457 3640 c-38 -30 -35 -65 13 -139 43 -66 47 -91 30 -181 -17 -89 -15 -241 3 -274 9 -16 21 -48 28 -71 7 -23 21 -47 30 -53 15 -10 21 -4 43 43 14 29 26 61 26 69 0 8 4 17 9 20 17 11 21 72 10 171 -24 228 -27 203 25 282 25 39 46 77 46 85 -1 7 -10 24 -21 38 -20 23 -29 25 -118 28 -86 3 -99 2 -124 -18z"/>
+                        <path d="M1045 3600 c-11 -4 -47 -16 -80 -25 -33 -10 -64 -21 -69 -26 -6 -5 -16 -9 -24 -9 -24 0 -146 -92 -183 -137 -34 -42 -80 -123 -94 -166 -28 -86 -34 -199 -35 -684 0 -560 -6 -508 70 -618 15 -22 78 -116 138 -210 61 -93 115 -175 121 -182 6 -6 19 -26 31 -45 20 -32 20 -47 20 -750 0 -638 2 -718 16 -732 14 -14 83 -16 609 -16 l594 0 16 22 c13 20 15 103 15 732 l-1 709 88 136 c48 75 91 141 96 146 4 6 48 72 97 148 l90 138 -3 572 c-2 373 -6 585 -14 608 -20 69 -68 154 -113 203 -48 51 -150 126 -172 126 -8 0 -18 4 -23 9 -6 5 -37 16 -70 26 -33 9 -68 21 -77 26 -43 22 -118 0 -118 -36 0 -8 -59 -170 -80 -220 -5 -11 -21 -56 -36 -100 -15 -44 -31 -84 -35 -89 -5 -6 -9 -18 -9 -28 0 -10 -4 -26 -9 -36 -6 -9 -22 -51 -36 -92 -15 -41 -30 -84 -35 -95 -11 -25 -46 -123 -68 -190 -9 -27 -25 -68 -37 -90 -17 -34 -26 -40 -56 -43 -42 -4 -58 12 -83 83 -17 50 -22 62 -46 120 -6 17 -19 50 -27 75 -8 25 -30 88 -50 140 -45 122 -65 178 -98 270 -15 41 -30 84 -35 95 -5 11 -19 49 -31 85 -12 36 -31 86 -42 113 -19 44 -23 47 -56 46 -20 0 -45 -4 -56 -9z"/>
+                    </g>
+                </svg>
+                <span class="logo-text">CONSIGLIERE</span>
+            </a>
+            
+            <nav class="nav">
+                <a href="#" class="nav-link" onclick="showPage('stay')">Stay</a>
+                <a href="#" class="nav-link" onclick="showPage('buy')">Buy</a>
+                <a href="#" class="nav-link" onclick="showPage('locations')">Locations</a>
+                <a href="#" class="nav-link" onclick="showPage('about')">About</a>
+                <a href="#" class="nav-link" onclick="showPage('contact')">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#" class="btn btn-outline" onclick="showPage('contact')">Speak to an Advisor</a>
+            </div>
+        </header>
+    </div>
+
+    <!-- ========== HOME PAGE ========== -->
+    <div id="page-home" class="page-section active">
+        
+        <!-- Hero -->
+        <section class="hero">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="hero-video.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-badge">London · Dubai</div>
+                <h1>Your Man on the Inside</h1>
+                <p class="hero-subtitle">
+                    We don't just find properties. We open doors that others can't — 
+                    connecting discerning clients with exceptional homes and investment opportunities.
+                </p>
+                <div class="hero-ctas">
+                    <a href="#" class="btn btn-outline-light" onclick="showPage('stay')">Find a Residence</a>
+                    <a href="#" class="btn btn-gold" onclick="showPage('contact')">Speak to an Advisor</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Discover</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- Introduction -->
+        <section class="intro">
+            <h2>Not an Agency.<br>Your Advisor.</h2>
+            <p>
+                In a world of algorithms and automated responses, we offer something increasingly rare: 
+                a trusted advisor who understands your needs before you articulate them. 
+                Whether you're seeking a pied-à-terre in Mayfair, a family villa on the Palm, 
+                or a strategic investment in emerging markets — we handle it. Discreetly. Efficiently. Completely.
+            </p>
+            <div class="intro-signature">
+                <span>"We don't show you listings. We present solutions."</span>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="services-section">
+            <div class="service-row">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80');"></div>
+                <div class="service-content">
+                    <div class="service-label">Short & Long-Term</div>
+                    <h3>Residences</h3>
+                    <p>
+                        From a week to a year, our curated portfolio of luxury residences offers 
+                        the privacy of home with the service of a five-star hotel. Each property 
+                        is hand-selected and personally inspected by our team.
+                    </p>
+                    <ul class="service-features">
+                        <li>Fully serviced apartments and townhouses</li>
+                        <li>Corporate relocation specialists</li>
+                        <li>Flexible terms, discreet arrangements</li>
+                        <li>24/7 concierge support</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="showPage('stay')">Browse Residences</a>
+                </div>
+            </div>
+
+            <div class="service-row reverse">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80');"></div>
+                <div class="service-content">
+                    <div class="service-label">Acquisitions & Investment</div>
+                    <h3>Property Sales</h3>
+                    <p>
+                        Whether you're acquiring a trophy asset, diversifying into Dubai's 
+                        tax-efficient market, or seeking off-market opportunities — we source, 
+                        negotiate, and secure properties others can't access.
+                    </p>
+                    <ul class="service-features">
+                        <li>Off-market and pre-launch access</li>
+                        <li>Investment analysis and projections</li>
+                        <li>End-to-end transaction management</li>
+                        <li>Post-purchase property management</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="showPage('buy')">Explore Opportunities</a>
+                </div>
+            </div>
+
+            <div class="service-row">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80');"></div>
+                <div class="service-content">
+                    <div class="service-label">Bespoke Service</div>
+                    <h3>Advisory</h3>
+                    <p>
+                        Sometimes you need more than a property — you need a strategy. 
+                        Portfolio restructuring, market timing, visa considerations, 
+                        tax optimization. We work with your advisors to deliver comprehensive solutions.
+                    </p>
+                    <ul class="service-features">
+                        <li>Golden Visa property structuring</li>
+                        <li>Portfolio diversification strategy</li>
+                        <li>Market intelligence and timing</li>
+                        <li>Complete confidentiality</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="showPage('contact')">Request Consultation</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Locations -->
+        <section class="locations-section">
+            <div class="section-header">
+                <h2>Our Markets</h2>
+                <p>Deep expertise in two of the world's most dynamic property markets</p>
+            </div>
+            <div class="locations-grid">
+                <div class="location-card" onclick="showPage('locations')">
+                    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1200&q=80" alt="London">
+                    <div class="location-overlay">
+                        <h3>London</h3>
+                        <div class="location-stats">
+                            <span>45 Residences</span>
+                            <span>12 For Sale</span>
+                        </div>
+                        <button class="btn-text" style="color: white;">
+                            Explore London
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="location-card" onclick="showPage('locations')">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80" alt="Dubai">
+                    <div class="location-overlay">
+                        <h3>Dubai</h3>
+                        <div class="location-stats">
+                            <span>32 Residences</span>
+                            <span>24 For Sale</span>
+                        </div>
+                        <button class="btn-text" style="color: white;">
+                            Explore Dubai
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Approach -->
+        <section class="approach-section">
+            <div class="section-header" style="color: white; margin-bottom: 4rem;">
+                <h2>The Consigliere Approach</h2>
+                <p style="color: var(--gray-400);">Discretion, expertise, and results — in that order</p>
+            </div>
+            <div class="approach-grid">
+                <div class="approach-item">
+                    <div class="approach-number">01</div>
+                    <h4>Listen</h4>
+                    <p>We begin by understanding not just what you want, but why. Your goals inform our strategy.</p>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-number">02</div>
+                    <h4>Curate</h4>
+                    <p>We present only properties that meet your criteria — typically 3-5 options, not 50 listings.</p>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-number">03</div>
+                    <h4>Execute</h4>
+                    <p>From viewing to completion, we handle every detail. You make decisions; we make them happen.</p>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-number">04</div>
+                    <h4>Protect</h4>
+                    <p>Your privacy is paramount. Transactions remain confidential. Relationships last decades.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Properties -->
+        <section class="properties-section">
+            <div class="properties-header">
+                <div>
+                    <h2>Featured Properties</h2>
+                </div>
+                <a href="#" class="btn-text" onclick="showPage('stay')">
+                    View all properties
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="properties-grid">
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Property">
+                        <span class="property-tag">Featured</span>
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Mayfair, London</div>
+                        <div class="property-name">The Grosvenor Suite</div>
+                        <div class="property-details">3 Bedrooms · 2 Bathrooms · 180m²</div>
+                        <div class="property-price">£2,500 <span>/ night</span></div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Property">
+                        <span class="property-tag">For Sale</span>
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Palm Jumeirah, Dubai</div>
+                        <div class="property-name">Oceanfront Villa</div>
+                        <div class="property-details">5 Bedrooms · 6 Bathrooms · 650m²</div>
+                        <div class="property-price">AED 45,000,000</div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Property">
+                        <span class="property-tag">Long-Term</span>
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Chelsea, London</div>
+                        <div class="property-name">The Sloane Residence</div>
+                        <div class="property-details">4 Bedrooms · 3 Bathrooms · 220m²</div>
+                        <div class="property-price">£18,000 <span>/ month</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Ready to Talk?</h2>
+            <p>Tell us what you're looking for. A member of our team will be in touch within 24 hours.</p>
+            <a href="#" class="btn btn-gold" onclick="showPage('contact')">Request a Consultation</a>
+        </section>
+
+        <!-- Contact Bar -->
+        <div class="contact-bar">
+            <div class="contact-item">
+                <span>London</span>
+                <a href="tel:+442071234567">+44 20 7123 4567</a>
+            </div>
+            <div class="contact-item">
+                <span>Dubai</span>
+                <a href="tel:+97141234567">+971 4 123 4567</a>
+            </div>
+            <div class="contact-item">
+                <span>Email</span>
+                <a href="mailto:advisory@theconsigliere.com">advisory@theconsigliere.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== STAY PAGE ========== -->
+    <div id="page-stay" class="page-section">
+        <section class="rent-hero">
+            <h1>Find Your Residence</h1>
+            <p>Luxury apartments and homes for a week, a month, or a year. Every property personally vetted. Every stay fully serviced.</p>
+            
+            <div class="search-container">
+                <div class="search-field">
+                    <label>Location</label>
+                    <span>London, UK</span>
+                </div>
+                <div class="search-divider"></div>
+                <div class="search-field">
+                    <label>Check In</label>
+                    <span>Select date</span>
+                </div>
+                <div class="search-divider"></div>
+                <div class="search-field">
+                    <label>Check Out</label>
+                    <span>Select date</span>
+                </div>
+                <div class="search-divider"></div>
+                <div class="search-field">
+                    <label>Guests</label>
+                    <span>2 guests</span>
+                </div>
+                <button class="search-btn">Search</button>
+            </div>
+        </section>
+
+        <div class="filters-bar">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Short-Term</button>
+            <button class="filter-btn">Long-Term</button>
+            <button class="filter-btn">Price ▾</button>
+            <button class="filter-btn">Bedrooms ▾</button>
+            <button class="filter-btn">More Filters</button>
+        </div>
+
+        <section class="properties-section">
+            <div class="properties-header">
+                <div>
+                    <h2>24 Residences Available</h2>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <span style="font-size: 0.85rem; color: var(--gray-500);">Sort by:</span>
+                    <select style="padding: 0.5rem 1rem; border: 1px solid var(--gray-300); font-size: 0.85rem;">
+                        <option>Recommended</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest</option>
+                    </select>
+                </div>
+            </div>
+            <div class="properties-grid">
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Property">
+                        <span class="property-tag">Featured</span>
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Mayfair, London</div>
+                        <div class="property-name">The Grosvenor Suite</div>
+                        <div class="property-details">3 Bedrooms · 2 Bathrooms · 180m²</div>
+                        <div class="property-price">£2,500 <span>/ night</span></div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Property">
+                        <span class="property-tag">Long-Term</span>
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Chelsea, London</div>
+                        <div class="property-name">The Sloane Residence</div>
+                        <div class="property-details">4 Bedrooms · 3 Bathrooms · 220m²</div>
+                        <div class="property-price">£18,000 <span>/ month</span></div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80" alt="Property">
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Notting Hill, London</div>
+                        <div class="property-name">The Westbourne</div>
+                        <div class="property-details">2 Bedrooms · 2 Bathrooms · 120m²</div>
+                        <div class="property-price">£1,200 <span>/ night</span></div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80" alt="Property">
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">DIFC, Dubai</div>
+                        <div class="property-name">Index Tower Residence</div>
+                        <div class="property-details">2 Bedrooms · 2 Bathrooms · 150m²</div>
+                        <div class="property-price">$800 <span>/ night</span></div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80" alt="Property">
+                        <span class="property-tag">Enquiry Only</span>
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Knightsbridge, London</div>
+                        <div class="property-name">The Hyde Park Suite</div>
+                        <div class="property-details">5 Bedrooms · 4 Bathrooms · 350m²</div>
+                        <div class="property-price">Price on Request</div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Property">
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Dubai Marina</div>
+                        <div class="property-name">Marina View Penthouse</div>
+                        <div class="property-details">3 Bedrooms · 3 Bathrooms · 280m²</div>
+                        <div class="property-price">$1,500 <span>/ night</span></div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="btn btn-outline">Load More Properties</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========== BUY PAGE ========== -->
+    <div id="page-buy" class="page-section">
+        <section class="buy-hero">
+            <h1>Strategic Property Acquisition</h1>
+            <p>Whether you're building a portfolio, seeking a family home, or diversifying into new markets — we source opportunities others can't access.</p>
+            <a href="#" class="btn btn-gold" onclick="showPage('contact')">Discuss Your Requirements</a>
+        </section>
+
+        <section class="buy-services">
+            <div class="section-header">
+                <h2>Our Acquisition Services</h2>
+                <p>End-to-end support from strategy to completion</p>
+            </div>
+            <div class="buy-services-grid">
+                <div class="buy-service-card">
+                    <h3>Off-Market Access</h3>
+                    <p>Many of the best properties never reach the open market. Our network provides access to exclusive, private sales before they're listed.</p>
+                    <a href="#" class="btn-text" onclick="showPage('contact')">Learn more →</a>
+                </div>
+                <div class="buy-service-card">
+                    <h3>Investment Analysis</h3>
+                    <p>Detailed ROI projections, rental yield analysis, and market timing advice. We help you understand exactly what you're buying and why.</p>
+                    <a href="#" class="btn-text" onclick="showPage('contact')">Learn more →</a>
+                </div>
+                <div class="buy-service-card">
+                    <h3>Transaction Management</h3>
+                    <p>Negotiation, due diligence, legal coordination, and completion. We manage every step so you simply approve decisions.</p>
+                    <a href="#" class="btn-text" onclick="showPage('contact')">Learn more →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="investment-section">
+            <div class="investment-grid">
+                <div class="investment-content">
+                    <h2>Dubai: The Strategic Choice</h2>
+                    <p>
+                        Zero income tax. Zero capital gains tax. 10-year Golden Visa eligibility. 
+                        Dubai isn't just a lifestyle destination — it's a financial strategy. 
+                        We help clients structure acquisitions that optimize both returns and residency benefits.
+                    </p>
+                    <a href="#" class="btn btn-gold" onclick="showPage('contact')">Discuss Dubai Investment</a>
+                </div>
+                <div class="investment-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">0%</div>
+                        <div class="stat-label">Income Tax</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0%</div>
+                        <div class="stat-label">Capital Gains Tax</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6-8%</div>
+                        <div class="stat-label">Rental Yields</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10yr</div>
+                        <div class="stat-label">Golden Visa</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="properties-section">
+            <div class="properties-header">
+                <div>
+                    <h2>Properties for Sale</h2>
+                </div>
+                <a href="#" class="btn-text">View all →</a>
+            </div>
+            <div class="properties-grid">
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Property">
+                        <span class="property-tag">Off-Market</span>
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Palm Jumeirah, Dubai</div>
+                        <div class="property-name">Oceanfront Villa</div>
+                        <div class="property-details">5 Bedrooms · 6 Bathrooms · 650m²</div>
+                        <div class="property-price">AED 45,000,000</div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="Property">
+                        <span class="property-tag">Off-Plan</span>
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Downtown Dubai</div>
+                        <div class="property-name">Burj Vista Penthouse</div>
+                        <div class="property-details">4 Bedrooms · 5 Bathrooms · 450m²</div>
+                        <div class="property-price">AED 18,500,000</div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" alt="Property">
+                        <span class="property-tag">Enquiry Only</span>
+                        <button class="property-save">♡</button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-location">Belgravia, London</div>
+                        <div class="property-name">Chester Square House</div>
+                        <div class="property-details">6 Bedrooms · 5 Bathrooms · 550m²</div>
+                        <div class="property-price">Price on Request</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Let's Discuss Your Strategy</h2>
+            <p>Every acquisition begins with understanding your goals. Schedule a confidential consultation.</p>
+            <a href="#" class="btn btn-gold" onclick="showPage('contact')">Request Consultation</a>
+        </section>
+    </div>
+
+    <!-- ========== LOCATIONS PAGE ========== -->
+    <div id="page-locations" class="page-section">
+        <section class="rent-hero">
+            <h1>Our Markets</h1>
+            <p>Deep local expertise in London and Dubai. We know these cities like a local — because we are.</p>
+        </section>
+
+        <section class="locations-section" style="padding-top: 3rem;">
+            <div class="locations-grid">
+                <div class="location-card">
+                    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1200&q=80" alt="London">
+                    <div class="location-overlay">
+                        <h3>London</h3>
+                        <div class="location-stats">
+                            <span>45 Residences</span>
+                            <span>12 For Sale</span>
+                        </div>
+                        <p style="margin-bottom: 1.5rem; opacity: 0.9;">Mayfair · Knightsbridge · Chelsea · Notting Hill · Marylebone · Kensington</p>
+                        <button class="btn btn-outline-light">Explore London Properties</button>
+                    </div>
+                </div>
+                <div class="location-card">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80" alt="Dubai">
+                    <div class="location-overlay">
+                        <h3>Dubai</h3>
+                        <div class="location-stats">
+                            <span>32 Residences</span>
+                            <span>24 For Sale</span>
+                        </div>
+                        <p style="margin-bottom: 1.5rem; opacity: 0.9;">Palm Jumeirah · Downtown · DIFC · Dubai Marina · Emirates Hills · Jumeirah Bay</p>
+                        <button class="btn btn-outline-light">Explore Dubai Properties</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========== ABOUT PAGE ========== -->
+    <div id="page-about" class="page-section">
+        <section class="about-hero">
+            <h1>The Consigliere</h1>
+            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; color: var(--gray-600); max-width: 600px; margin: 0 auto;">
+                /kɒnsɪlˈjɛːreɪ/ — A trusted advisor. One who counsels and guides, operating with discretion and expertise.
+            </p>
+        </section>
+
+        <section class="about-story">
+            <p>
+                The term comes from the Italian, famously associated with the trusted right hand of powerful families. 
+                But strip away the Hollywood drama, and you find something simple: a person who solves problems before 
+                they become problems. Someone who knows everyone worth knowing. Someone who gets things done.
+            </p>
+            <p>
+                We founded The Consigliere on a simple observation: wealthy individuals don't need another real estate 
+                agent showing them listings. They need an advisor who understands their world — the complexity of their 
+                finances, the demands on their time, and their need for absolute discretion.
+            </p>
+            <p>
+                We operate in London and Dubai because these are the markets we know intimately. Not from market reports, 
+                but from decades of living, working, and building relationships in these cities. When we say we can access 
+                off-market opportunities, we mean it. When we say your privacy is protected, we mean it.
+            </p>
+        </section>
+
+        <section class="about-values">
+            <div class="section-header" style="color: white;">
+                <h2>Our Principles</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3>Discretion First</h3>
+                    <p>Your business is your business. We don't discuss clients, we don't share details, and we certainly don't post on social media. Some things should stay private.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Quality Over Quantity</h3>
+                    <p>We work with a limited number of clients at any time. This isn't artificial scarcity — it's the only way to provide the attention you deserve.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Long-Term Relationships</h3>
+                    <p>We're not interested in one transaction. We build relationships that span decades, generations even. Your family becomes part of ours.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========== CONTACT PAGE ========== -->
+    <div id="page-contact" class="page-section">
+        <section class="rent-hero">
+            <h1>Let's Talk</h1>
+            <p>Tell us what you're looking for. A member of our advisory team will be in touch within 24 hours.</p>
+        </section>
+
+        <section class="enquiry-section">
+            <div class="enquiry-form">
+                <div class="section-header" style="margin-bottom: 3rem;">
+                    <h2>How Can We Help?</h2>
+                </div>
+
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>I'm Interested In *</label>
+                        <select required>
+                            <option value="">Select an option</option>
+                            <option>Short-term rental (1 night - 3 months)</option>
+                            <option>Long-term rental (6+ months)</option>
+                            <option>Buying property</option>
+                            <option>Investment advisory</option>
+                            <option>General enquiry</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Preferred Location</label>
+                            <select>
+                                <option value="">Select location</option>
+                                <option>London</option>
+                                <option>Dubai</option>
+                                <option>Both</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Budget Range</label>
+                            <select>
+                                <option value="">Select budget</option>
+                                <option>Up to £2,000/night</option>
+                                <option>£2,000 - £5,000/night</option>
+                                <option>£5,000+/night</option>
+                                <option>Up to £10,000/month</option>
+                                <option>£10,000 - £25,000/month</option>
+                                <option>£25,000+/month</option>
+                                <option>Purchasing: Up to £5M</option>
+                                <option>Purchasing: £5M - £20M</option>
+                                <option>Purchasing: £20M+</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tell Us More</label>
+                        <textarea placeholder="Describe what you're looking for, any specific requirements, or questions you have..."></textarea>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Enquiry</button>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--gray-500); text-align: center;">
+                        Your information is kept strictly confidential and will never be shared with third parties.
+                    </p>
+                </form>
+            </div>
+        </section>
+
+        <div class="contact-bar">
+            <div class="contact-item">
+                <span>London Office</span>
+                <a href="tel:+442071234567">+44 20 7123 4567</a>
+            </div>
+            <div class="contact-item">
+                <span>Dubai Office</span>
+                <a href="tel:+97141234567">+971 4 123 4567</a>
+            </div>
+            <div class="contact-item">
+                <span>Email</span>
+                <a href="mailto:advisory@theconsigliere.com">advisory@theconsigliere.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (shared across pages) -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo" style="color: white;" onclick="showPage('home')">
+                    <svg width="45" height="58" viewBox="0 0 180 230" fill="none">
+                        <text x="90" y="70" text-anchor="middle" font-family="Cinzel, serif" font-size="80" fill="white" font-weight="600">C</text>
+                        <g transform="translate(55, 75) scale(0.023, -0.023) translate(0, -3820)" fill="white">
+                            <path d="M1457 3640 c-38 -30 -35 -65 13 -139 43 -66 47 -91 30 -181 -17 -89 -15 -241 3 -274 9 -16 21 -48 28 -71 7 -23 21 -47 30 -53 15 -10 21 -4 43 43 14 29 26 61 26 69 0 8 4 17 9 20 17 11 21 72 10 171 -24 228 -27 203 25 282 25 39 46 77 46 85 -1 7 -10 24 -21 38 -20 23 -29 25 -118 28 -86 3 -99 2 -124 -18z"/>
+                            <path d="M1045 3600 c-11 -4 -47 -16 -80 -25 -33 -10 -64 -21 -69 -26 -6 -5 -16 -9 -24 -9 -24 0 -146 -92 -183 -137 -34 -42 -80 -123 -94 -166 -28 -86 -34 -199 -35 -684 0 -560 -6 -508 70 -618 15 -22 78 -116 138 -210 61 -93 115 -175 121 -182 6 -6 19 -26 31 -45 20 -32 20 -47 20 -750 0 -638 2 -718 16 -732 14 -14 83 -16 609 -16 l594 0 16 22 c13 20 15 103 15 732 l-1 709 88 136 c48 75 91 141 96 146 4 6 48 72 97 148 l90 138 -3 572 c-2 373 -6 585 -14 608 -20 69 -68 154 -113 203 -48 51 -150 126 -172 126 -8 0 -18 4 -23 9 -6 5 -37 16 -70 26 -33 9 -68 21 -77 26 -43 22 -118 0 -118 -36 0 -8 -59 -170 -80 -220 -5 -11 -21 -56 -36 -100 -15 -44 -31 -84 -35 -89 -5 -6 -9 -18 -9 -28 0 -10 -4 -26 -9 -36 -6 -9 -22 -51 -36 -92 -15 -41 -30 -84 -35 -95 -11 -25 -46 -123 -68 -190 -9 -27 -25 -68 -37 -90 -17 -34 -26 -40 -56 -43 -42 -4 -58 12 -83 83 -17 50 -22 62 -46 120 -6 17 -19 50 -27 75 -8 25 -30 88 -50 140 -45 122 -65 178 -98 270 -15 41 -30 84 -35 95 -5 11 -19 49 -31 85 -12 36 -31 86 -42 113 -19 44 -23 47 -56 46 -20 0 -45 -4 -56 -9z"/>
+                        </g>
+                    </svg>
+                </a>
+                <p>Your trusted advisor in luxury property. Connecting discerning clients with exceptional homes in London and Dubai.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Stay</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('stay')">Short-Term</a></li>
+                    <li><a href="#" onclick="showPage('stay')">Long-Term</a></li>
+                    <li><a href="#" onclick="showPage('stay')">Corporate</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('buy')">London</a></li>
+                    <li><a href="#" onclick="showPage('buy')">Dubai</a></li>
+                    <li><a href="#" onclick="showPage('buy')">Off-Plan</a></li>
+                    <li><a href="#" onclick="showPage('buy')">Investment</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('about')">About Us</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+442071234567">+44 20 7123 4567</a></li>
+                    <li><a href="tel:+97141234567">+971 4 123 4567</a></li>
+                    <li><a href="mailto:advisory@theconsigliere.com">advisory@theconsigliere.com</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2025 The Consigliere. All rights reserved.</span>
+            <div style="display: flex; gap: 2rem;">
+                <a href="#" style="color: var(--gray-500); text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: var(--gray-500); text-decoration: none;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            // Update nav styling based on page
+            const navbar = document.getElementById('navbar');
+            if (pageId === 'home') {
+                navbar.classList.add('dark');
+            } else {
+                navbar.classList.remove('dark');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Set initial nav color
+        document.getElementById('navbar').classList.add('dark');
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import Link from "next/link";
+
+export function HeroVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch((err) => {
+        console.log("Video autoplay failed:", err);
+      });
+    }
+  }, []);
+
+  return (
+    <section className="min-h-screen relative">
+      {/* Video Background - positioned absolutely behind everything */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        style={{ zIndex: 1 }}
+      >
+        <source src="/videos/hero.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Dark Overlay */}
+      <div
+        className="absolute top-0 left-0 w-full h-full bg-black/50"
+        style={{ zIndex: 2 }}
+      />
+
+      {/* Content Container */}
+      <div
+        className="relative flex flex-col justify-center items-center text-center px-8 py-40 text-white min-h-screen"
+        style={{ zIndex: 3 }}
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="text-[0.7rem] tracking-[0.3em] uppercase mb-8 opacity-80">
+            London · Dubai
+          </div>
+
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal mb-6">
+            Your Man on the Inside
+          </h1>
+
+          <p className="font-editorial text-lg md:text-xl lg:text-2xl italic opacity-90 max-w-2xl mx-auto mb-12 leading-relaxed">
+            We don&apos;t just find properties. We open doors that others can&apos;t —
+            connecting discerning clients with exceptional homes and investment
+            opportunities.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/stay" className="btn btn-outline-light">
+              Find a Residence
+            </Link>
+            <Link href="/contact" className="btn btn-gold">
+              Speak to an Advisor
+            </Link>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-70">
+          <span className="text-[0.65rem] tracking-[0.2em] uppercase">
+            Discover
+          </span>
+          <div className="w-px h-10 bg-gradient-to-b from-white to-transparent" />
+        </div>
+      </div>
+    </section>
+  );
+}

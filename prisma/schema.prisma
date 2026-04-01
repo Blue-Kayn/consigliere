@@ -1,0 +1,190 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// User model for admin authentication
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  role          String    @default("USER")
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Property {
+  id            String          @id @default(cuid())
+  name          String
+  slug          String          @unique
+  tagline       String?
+  description   String
+  city          String          // LONDON, DUBAI
+  neighborhood  String
+  address       String?
+  latitude      Float?
+  longitude     Float?
+  propertyType  String          // APARTMENT, PENTHOUSE, TOWNHOUSE, VILLA, HOUSE
+  listingType   String          // SHORT_TERM, LONG_TERM, FOR_SALE
+  bookingMode   String          @default("INSTANT_BOOK") // INSTANT_BOOK, REQUEST_TO_BOOK, ENQUIRY_ONLY
+
+  // Details
+  bedrooms      Int
+  bathrooms     Int
+  sleeps        Int?
+  sizeSqm       Int?
+
+  // Pricing
+  pricePerNight Int?
+  pricePerMonth Int?
+  salePrice     Int?
+  currency      String          @default("GBP") // GBP, AED, USD, EUR
+  cleaningFee   Int?
+  securityDeposit Int?
+
+  // Status
+  status        String          @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  featured      Boolean         @default(false)
+
+  // Relations
+  images        PropertyImage[]
+  amenities     PropertyAmenity[]
+  bookings      Booking[]
+  enquiries     Enquiry[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model PropertyImage {
+  id         String   @id @default(cuid())
+  url        String
+  alt        String?
+  order      Int      @default(0)
+  isHero     Boolean  @default(false)
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+model Amenity {
+  id         String            @id @default(cuid())
+  name       String
+  icon       String?
+  category   String
+  properties PropertyAmenity[]
+}
+
+model PropertyAmenity {
+  id         String   @id @default(cuid())
+  propertyId String
+  amenityId  String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  amenity    Amenity  @relation(fields: [amenityId], references: [id], onDelete: Cascade)
+
+  @@unique([propertyId, amenityId])
+}
+
+model Booking {
+  id              String   @id @default(cuid())
+  reference       String   @unique
+  propertyId      String
+  property        Property @relation(fields: [propertyId], references: [id])
+
+  // Guest info
+  guestName       String
+  guestEmail      String
+  guestPhone      String?
+  numberOfGuests  Int
+
+  // Dates
+  checkIn         DateTime
+  checkOut        DateTime
+  nights          Int
+
+  // Pricing
+  subtotal        Int
+  cleaningFee     Int?
+  serviceFee      Int?
+  total           Int
+  currency        String
+
+  // Payment
+  stripePaymentId String?
+  status          String   @default("PENDING") // PENDING, CONFIRMED, CANCELLED, COMPLETED
+
+  // Notes
+  specialRequests String?
+  internalNotes   String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Enquiry {
+  id           String    @id @default(cuid())
+  propertyId   String?
+  property     Property? @relation(fields: [propertyId], references: [id])
+
+  // Contact info
+  firstName    String
+  lastName     String
+  email        String
+  phone        String?
+
+  // Enquiry details
+  type         String    // STAY, BUY, ADVISORY, GENERAL
+  location     String?   // LONDON, DUBAI, BOTH
+  budget       String?
+  message      String
+
+  // Status
+  status       String    @default("NEW") // NEW, RESPONDED, CLOSED
+  internalNotes String?
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
