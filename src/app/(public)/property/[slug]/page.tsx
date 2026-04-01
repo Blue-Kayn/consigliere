@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Heart, Share2, MapPin, Bed, Bath, Maximize, Users } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function PropertyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 

@@ -7,6 +7,8 @@ import { FeaturedProperties } from "@/components/home/FeaturedProperties";
 import { CTASection } from "@/components/home/CTASection";
 import { ContactBar } from "@/components/home/ContactBar";
 
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
   return (
     <>

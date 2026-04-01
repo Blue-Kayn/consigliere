@@ -4,6 +4,8 @@ import { Plus, Edit, Trash2, Eye } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export default async function PropertiesPage() {
   const properties = await prisma.property.findMany({
     include: {

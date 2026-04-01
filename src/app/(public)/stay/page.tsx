@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { StayContent } from "./StayContent";
 
+export const dynamic = "force-dynamic";
+
 export default async function StayPage() {
   const properties = await prisma.property.findMany({
     where: {

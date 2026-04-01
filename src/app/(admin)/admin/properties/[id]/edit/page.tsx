@@ -4,6 +4,8 @@ import { ArrowLeft } from "lucide-react";
 import { PropertyForm } from "@/components/forms/PropertyForm";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function EditPropertyPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
