@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatPrice(
   amount: number,
-  currency: "GBP" | "AED" | "USD" | "EUR" = "GBP"
+  currency: string = "GBP"
 ): string {
   const formatters: Record<string, Intl.NumberFormat> = {
     GBP: new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 }),
