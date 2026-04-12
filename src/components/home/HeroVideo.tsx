@@ -49,7 +49,7 @@ export function HeroVideo() {
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal mb-6">
-            Your Man on the Inside
+            London &amp; Dubai&apos;s Most Sought-After Addresses
           </h1>
 
           <p className="font-editorial text-lg md:text-xl lg:text-2xl italic opacity-90 max-w-2xl mx-auto mb-12 leading-relaxed">
