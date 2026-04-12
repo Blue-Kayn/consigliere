@@ -3,13 +3,13 @@ import Link from "next/link";
 const contacts = [
   {
     label: "London",
-    value: "+44 20 7123 4567",
-    href: "tel:+442071234567",
+    value: "+44 7442 165270",
+    href: "tel:+447442165270",
   },
   {
     label: "Dubai",
-    value: "+971 4 123 4567",
-    href: "tel:+97141234567",
+    value: "+971 50 748 6977",
+    href: "tel:+971507486977",
   },
   {
     label: "Email",

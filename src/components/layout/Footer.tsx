@@ -19,8 +19,8 @@ const footerLinks = {
     { label: "Careers", href: "/careers" },
   ],
   contact: [
-    { label: "+44 20 7123 4567", href: "tel:+442071234567" },
-    { label: "+971 4 123 4567", href: "tel:+97141234567" },
+    { label: "+44 7442 165270", href: "tel:+447442165270" },
+    { label: "+971 50 748 6977", href: "tel:+971507486977" },
     { label: "advisory@theconsigliere.com", href: "mailto:advisory@theconsigliere.com" },
   ],
 };
