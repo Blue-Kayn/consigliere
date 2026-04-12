@@ -6,7 +6,7 @@ import Link from "next/link";
 const contacts = [
   { label: "London Office", value: "+44 7442 165270", href: "tel:+447442165270" },
   { label: "Dubai Office", value: "+971 50 748 6977", href: "tel:+971507486977" },
-  { label: "Email", value: "advisory@theconsigliere.com", href: "mailto:advisory@theconsigliere.com" },
+  { label: "Email", value: "info@consigliere-residences.com", href: "mailto:info@consigliere-residences.com" },
 ];
 
 export default function ContactPage() {
@@ -21,11 +21,46 @@ export default function ContactPage() {
     message: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Submit to API
-    console.log(formData);
-    alert("Thank you for your enquiry. We'll be in touch within 24 hours.");
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          type: formData.interest.toUpperCase(),
+          location: formData.location.toUpperCase(),
+          budget: formData.budget,
+          message: formData.message,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to submit");
+
+      alert("Thank you for your enquiry. We'll be in touch within 24 hours.");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        interest: "",
+        location: "",
+        budget: "",
+        message: "",
+      });
+    } catch {
+      alert("Something went wrong. Please try again or email us at info@consigliere-residences.com");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -170,8 +205,8 @@ export default function ContactPage() {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary w-full">
-              Submit Enquiry
+            <button type="submit" disabled={isSubmitting} className="btn btn-primary w-full disabled:opacity-50">
+              {isSubmitting ? "Submitting..." : "Submit Enquiry"}
             </button>
 
             <p className="text-center text-sm text-[var(--gray-500)]">

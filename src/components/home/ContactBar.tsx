@@ -13,8 +13,8 @@ const contacts = [
   },
   {
     label: "Email",
-    value: "advisory@theconsigliere.com",
-    href: "mailto:advisory@theconsigliere.com",
+    value: "info@consigliere-residences.com",
+    href: "mailto:info@consigliere-residences.com",
   },
 ];
 
