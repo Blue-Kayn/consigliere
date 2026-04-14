@@ -35,12 +35,9 @@ export function Footer() {
               href="https://www.airbnb.ae/users/profile/1470668248408517733"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-4 text-gray-500 hover:text-white transition-colors"
-              aria-label="Airbnb"
+              className="inline-block mt-4 px-5 py-2.5 bg-[#ff5a5f] text-white text-sm font-bold rounded-lg hover:bg-[#e04a4f] transition-colors"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.001 18.275c-.457-.86-1.014-1.88-1.636-3.039-.636-1.187-1.327-2.508-1.953-3.844-.592-1.262-1.093-2.47-1.456-3.476-.371-1.03-.573-1.82-.573-2.305 0-1.666.913-3.203 2.4-4.03C9.413 1.17 10.206.91 11 .803V.8h.002c.003 0 .005 0 .008.001L11.999.8c.795.108 1.588.368 2.218.782 1.487.826 2.4 2.363 2.4 4.029 0 .485-.202 1.275-.573 2.305-.363 1.005-.864 2.214-1.456 3.476-.626 1.336-1.317 2.657-1.953 3.844-.622 1.16-1.18 2.179-1.636 3.039h.002zm0 2.181c.16.294.298.548.41.754.153.28.402.28.555 0 .112-.206.25-.46.41-.754.495-.91 1.161-2.118 1.883-3.464.722-1.348 1.5-2.835 2.2-4.33.7-1.494 1.329-2.998 1.795-4.285.467-1.287.747-2.358.747-3.066C20.001 2.47 16.423 0 12.001 0S4 2.47 4 5.611c0 .708.28 1.779.747 3.066.466 1.287 1.095 2.791 1.795 4.284.7 1.496 1.478 2.983 2.2 4.331.722 1.346 1.388 2.554 1.883 3.464h-.624zm0-14.85a2.006 2.006 0 1 0 0-4.012 2.006 2.006 0 0 0 0 4.012z" />
-              </svg>
+              Book on Airbnb
             </a>
             <p className="text-gray-500 text-sm mt-4 max-w-[280px] leading-relaxed">
               Your trusted advisor in luxury property. Connecting discerning
