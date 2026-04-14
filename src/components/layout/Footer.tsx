@@ -10,13 +10,11 @@ const footerLinks = {
   buy: [
     { label: "London", href: "/buy?city=london" },
     { label: "Dubai", href: "/buy?city=dubai" },
-    { label: "Off-Plan", href: "/buy?type=off-plan" },
-    { label: "Investment", href: "/buy?type=investment" },
+{ label: "Investment", href: "/buy?type=investment" },
   ],
   company: [
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
-    { label: "Careers", href: "/careers" },
   ],
   contact: [
     { label: "+44 7442 165270", href: "tel:+447442165270" },
