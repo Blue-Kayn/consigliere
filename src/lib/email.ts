@@ -31,7 +31,7 @@ export async function sendEnquiryNotification(data: EnquiryEmailData) {
   const typeLabel = typeLabels[data.type] || data.type;
 
   const { data: result, error } = await resend.emails.send({
-    from: "The Consigliere <onboarding@resend.dev>",
+    from: "The Consigliere <noreply@consigliere-residences.com>",
     to: ADMIN_EMAIL,
     subject: `New Enquiry: ${typeLabel} — ${data.firstName} ${data.lastName}`,
     html: `
