@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendEnquiryNotification } from "@/lib/email";
 
 // GET all enquiries
 export async function GET(request: Request) {
@@ -53,7 +54,22 @@ export async function POST(request: Request) {
       },
     });
 
-    // TODO: Send notification email to admin
+    // Send notification email to admin
+    const propertyName = data.propertyId
+      ? (await prisma.property.findUnique({ where: { id: data.propertyId }, select: { name: true } }))?.name
+      : null;
+
+    await sendEnquiryNotification({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      type: data.type,
+      location: data.location,
+      budget: data.budget,
+      message: data.message,
+      propertyName,
+    });
 
     return NextResponse.json(enquiry, { status: 201 });
   } catch (error) {

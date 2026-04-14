@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Heart, Share2, MapPin, Bed, Bath, Maximize, Users } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { ImageCarousel } from "@/components/property/ImageCarousel";
+import { BookingEnquiry } from "@/components/property/BookingEnquiry";
 
 export const dynamic = "force-dynamic";
 
@@ -142,74 +143,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
           {/* Booking Sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-32 bg-white border border-[var(--gray-300)] p-8">
-              <div className="text-2xl font-medium mb-2">
-                £{property.pricePerNight?.toLocaleString()}
-                <span className="text-base font-normal text-[var(--gray-400)]"> / night</span>
-              </div>
-
-              <div className="space-y-4 mt-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="border border-[var(--gray-300)] p-4">
-                    <label className="form-label text-[0.65rem]">Check In</label>
-                    <input type="date" className="w-full text-sm" />
-                  </div>
-                  <div className="border border-[var(--gray-300)] p-4">
-                    <label className="form-label text-[0.65rem]">Check Out</label>
-                    <input type="date" className="w-full text-sm" />
-                  </div>
-                </div>
-
-                <div className="border border-[var(--gray-300)] p-4">
-                  <label className="form-label text-[0.65rem]">Guests</label>
-                  <select className="w-full text-sm">
-                    <option>1 guest</option>
-                    <option>2 guests</option>
-                    <option>3 guests</option>
-                    <option>4 guests</option>
-                    <option>5 guests</option>
-                    <option>6 guests</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-6 border-t border-[var(--gray-300)] space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span>£{property.pricePerNight?.toLocaleString()} x 5 nights</span>
-                  <span>£{((property.pricePerNight || 0) * 5).toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Cleaning fee</span>
-                  <span>£{property.cleaningFee?.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Service fee</span>
-                  <span>£{((property.pricePerNight || 0) * 5 * 0.1).toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between font-medium pt-3 border-t border-[var(--gray-300)]">
-                  <span>Total</span>
-                  <span>
-                    £{(
-                      (property.pricePerNight || 0) * 5 +
-                      (property.cleaningFee || 0) +
-                      (property.pricePerNight || 0) * 5 * 0.1
-                    ).toLocaleString()}
-                  </span>
-                </div>
-              </div>
-
-              <button className="btn btn-primary w-full mt-6">
-                {property.bookingMode === "INSTANT_BOOK"
-                  ? "Book Now"
-                  : property.bookingMode === "REQUEST_TO_BOOK"
-                  ? "Request to Book"
-                  : "Send Enquiry"}
-              </button>
-
-              <p className="text-center text-xs text-[var(--gray-500)] mt-4">
-                You won&apos;t be charged yet
-              </p>
-            </div>
+            <BookingEnquiry
+              propertyId={property.id}
+              propertyName={property.name}
+              pricePerNight={property.pricePerNight}
+              cleaningFee={property.cleaningFee}
+              bookingMode={property.bookingMode}
+            />
           </div>
         </div>
       </div>
