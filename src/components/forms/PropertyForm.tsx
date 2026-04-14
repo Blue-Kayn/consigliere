@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { X, Upload, GripVertical } from "lucide-react";
+import { X, Upload, GripVertical, Loader2 } from "lucide-react";
+import { useUploadThing } from "@/lib/uploadthing";
 
 interface PropertyFormData {
   name: string;
@@ -56,6 +57,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("basic");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const { startUpload } = useUploadThing("propertyImage");
 
   const [formData, setFormData] = useState<PropertyFormData>({
     name: property?.name || "",
@@ -121,19 +125,27 @@ export function PropertyForm({ property }: PropertyFormProps) {
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (!files) return;
+    if (!files || files.length === 0) return;
 
-    // For now, we'll use placeholder URLs
-    // In production, upload to Uploadthing
-    const newImages = Array.from(files).map((file, i) => ({
-      url: URL.createObjectURL(file),
-      alt: file.name,
-    }));
-
-    setFormData({
-      ...formData,
-      images: [...formData.images, ...newImages],
-    });
+    setIsUploading(true);
+    try {
+      const result = await startUpload(Array.from(files));
+      if (result) {
+        const newImages = result.map((file) => ({
+          url: file.ufsUrl,
+          alt: file.name,
+        }));
+        setFormData({
+          ...formData,
+          images: [...formData.images, ...newImages],
+        });
+      }
+    } catch (error) {
+      console.error("Upload failed:", error);
+      alert("Image upload failed. Please try again.");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const removeImage = (index: number) => {
@@ -439,15 +451,25 @@ export function PropertyForm({ property }: PropertyFormProps) {
             ))}
 
             {/* Upload Button */}
-            <label className="aspect-video border-2 border-dashed border-gray-300 rounded flex flex-col items-center justify-center cursor-pointer hover:border-[var(--gold)] transition-colors">
-              <Upload size={24} className="text-gray-400 mb-2" />
-              <span className="text-sm text-gray-500">Upload Image</span>
+            <label className={`aspect-video border-2 border-dashed border-gray-300 rounded flex flex-col items-center justify-center transition-colors ${isUploading ? "opacity-50 cursor-wait" : "cursor-pointer hover:border-[var(--gold)]"}`}>
+              {isUploading ? (
+                <>
+                  <Loader2 size={24} className="text-gray-400 mb-2 animate-spin" />
+                  <span className="text-sm text-gray-500">Uploading...</span>
+                </>
+              ) : (
+                <>
+                  <Upload size={24} className="text-gray-400 mb-2" />
+                  <span className="text-sm text-gray-500">Upload Image</span>
+                </>
+              )}
               <input
                 type="file"
                 accept="image/*"
                 multiple
                 className="hidden"
                 onChange={handleImageUpload}
+                disabled={isUploading}
               />
             </label>
           </div>
