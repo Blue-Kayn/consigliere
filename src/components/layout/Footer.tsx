@@ -17,7 +17,7 @@ const footerLinks = {
     { label: "Contact", href: "/contact" },
   ],
   contact: [
-    { label: "+44 7442 165270", href: "tel:+447442165270" },
+    { label: "+44 7301 825175", href: "tel:+447301825175" },
     { label: "+971 50 748 6977", href: "tel:+971507486977" },
     { label: "info@consigliere-residences.com", href: "mailto:info@consigliere-residences.com" },
   ],

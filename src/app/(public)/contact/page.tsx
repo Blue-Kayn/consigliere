@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 const contacts = [
-  { label: "London Office", value: "+44 7442 165270", href: "tel:+447442165270" },
+  { label: "London Office", value: "+44 7301 825175", href: "tel:+447301825175" },
   { label: "Dubai Office", value: "+971 50 748 6977", href: "tel:+971507486977" },
   { label: "Email", value: "info@consigliere-residences.com", href: "mailto:info@consigliere-residences.com" },
 ];
