@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Heart, Share2, MapPin, Bed, Bath, Maximize, Users } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { ImageCarousel } from "@/components/property/ImageCarousel";
 
 export const dynamic = "force-dynamic";
 
@@ -32,37 +32,16 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         </Link>
       </div>
 
-      {/* Gallery */}
-      <div className="px-8 lg:px-16 max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="relative aspect-[4/3] lg:aspect-auto lg:row-span-2">
-            <Image
-              src={property.images[0].url}
-              alt={property.images[0].alt || property.name}
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="hidden lg:grid grid-cols-2 gap-4">
-            {property.images.slice(1, 5).map((image, index) => (
-              <div key={index} className="relative aspect-[4/3]">
-                <Image
-                  src={image.url}
-                  alt={image.alt || property.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Content */}
       <div className="px-8 lg:px-16 py-12 max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2">
+            {/* Image Carousel */}
+            <div className="mb-8">
+              <ImageCarousel images={property.images} propertyName={property.name} />
+            </div>
+
             {/* Header */}
             <div className="flex justify-between items-start mb-8">
               <div>
