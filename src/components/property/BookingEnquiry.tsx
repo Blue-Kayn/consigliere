@@ -38,7 +38,7 @@ export function BookingEnquiry({
   const total = subtotal + (cleaningFee || 0) + serviceFee;
 
   const handleSubmit = async () => {
-    if (!firstName || !lastName || !email) return;
+    if (!firstName || !lastName || !email || !phone) return;
     setIsSubmitting(true);
 
     try {
@@ -196,12 +196,13 @@ export function BookingEnquiry({
             />
           </div>
           <div>
-            <label className="form-label text-[0.65rem]">Phone</label>
+            <label className="form-label text-[0.65rem]">Phone *</label>
             <input
               type="tel"
               className="form-input text-sm"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              required
             />
           </div>
           <div>
@@ -215,7 +216,7 @@ export function BookingEnquiry({
           </div>
           <button
             onClick={handleSubmit}
-            disabled={isSubmitting || !firstName || !lastName || !email}
+            disabled={isSubmitting || !firstName || !lastName || !email || !phone}
             className="btn btn-primary w-full disabled:opacity-50"
           >
             {isSubmitting ? "Submitting..." : "Submit Enquiry"}
