@@ -68,7 +68,7 @@ export function ServicesSection() {
         >
           {/* Image */}
           <div
-            className="relative h-[400px] lg:h-auto bg-cover bg-center"
+            className="relative h-[280px] sm:h-[400px] lg:h-auto bg-cover bg-center"
             style={{ direction: "ltr" }}
           >
             <Image
@@ -81,14 +81,14 @@ export function ServicesSection() {
 
           {/* Content */}
           <div
-            className="flex flex-col justify-center p-8 lg:p-24 bg-[var(--cream)]"
+            className="flex flex-col justify-center p-6 sm:p-8 lg:p-24 bg-[var(--cream)]"
             style={{ direction: "ltr" }}
           >
             <div className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--gold)] mb-6">
               {service.label}
             </div>
 
-            <h3 className="text-3xl lg:text-[2.5rem] mb-6">{service.title}</h3>
+            <h3 className="text-2xl sm:text-3xl lg:text-[2.5rem] mb-6">{service.title}</h3>
 
             <p className="font-editorial text-lg lg:text-xl text-[var(--gray-600)] mb-8 leading-relaxed">
               {service.description}

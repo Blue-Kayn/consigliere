@@ -27,9 +27,9 @@ const steps = [
 
 export function ApproachSection() {
   return (
-    <section className="py-32 px-8 lg:px-16 bg-[var(--charcoal)] text-white">
-      <div className="text-center mb-16">
-        <h2 className="text-3xl lg:text-[2.5rem] mb-4">
+    <section className="py-16 sm:py-32 px-6 sm:px-8 lg:px-16 bg-[var(--charcoal)] text-white">
+      <div className="text-center mb-10 sm:mb-16">
+        <h2 className="text-2xl sm:text-3xl lg:text-[2.5rem] mb-4">
           The Consigliere Approach
         </h2>
         <p className="text-[var(--gray-400)]">
@@ -37,9 +37,9 @@ export function ApproachSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 max-w-[1200px] mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 lg:gap-12 max-w-[1200px] mx-auto">
         {steps.map((step) => (
-          <div key={step.number} className="text-center p-8">
+          <div key={step.number} className="text-center p-4 sm:p-8">
             <div className="font-serif text-4xl lg:text-5xl text-[var(--gold)] mb-6">
               {step.number}
             </div>

@@ -23,8 +23,8 @@ const locations = [
 
 export function LocationsSection() {
   return (
-    <section className="py-32 px-8 lg:px-16 bg-white">
-      <div className="text-center mb-20">
+    <section className="py-16 sm:py-32 px-6 sm:px-8 lg:px-16 bg-white">
+      <div className="text-center mb-12 sm:mb-20">
         <h2 className="text-3xl lg:text-[2.5rem] mb-4">Our Markets</h2>
         <p className="font-editorial text-lg lg:text-xl text-[var(--gray-500)]">
           Deep expertise in two of the world&apos;s most dynamic property markets
@@ -36,7 +36,7 @@ export function LocationsSection() {
           <Link
             key={location.name}
             href={location.href}
-            className="location-card group relative h-[500px] lg:h-[600px]"
+            className="location-card group relative h-[380px] sm:h-[500px] lg:h-[600px]"
           >
             <Image
               src={location.image}

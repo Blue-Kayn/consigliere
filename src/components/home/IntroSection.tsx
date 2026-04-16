@@ -1,7 +1,7 @@
 export function IntroSection() {
   return (
-    <section className="py-32 px-8 lg:px-16 max-w-4xl mx-auto text-center">
-      <h2 className="text-3xl md:text-4xl lg:text-[2.5rem] mb-8">
+    <section className="py-16 sm:py-32 px-6 sm:px-8 lg:px-16 max-w-4xl mx-auto text-center">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.5rem] mb-8">
         Not an Agency.
         <br />
         Your Advisor.

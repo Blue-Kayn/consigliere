@@ -46,7 +46,7 @@ export function Header({ variant = "light" }: HeaderProps) {
           : "bg-white"
       )}
     >
-      <header className="flex justify-between items-center max-w-[1600px] mx-auto px-8 lg:px-16 py-6">
+      <header className="flex justify-between items-center max-w-[1600px] mx-auto px-6 lg:px-16 py-4 lg:py-6">
         <Link href="/">
           <Logo color={isDark ? "light" : "dark"} />
         </Link>
