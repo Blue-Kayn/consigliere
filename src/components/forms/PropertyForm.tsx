@@ -10,7 +10,9 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragOverlay,
   type DragEndEvent,
+  type DragStartEvent,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -84,7 +86,7 @@ function SortableImage({
     transform: CSS.Transform.toString(transform),
     transition,
     zIndex: isDragging ? 50 : undefined,
-    opacity: isDragging ? 0.8 : 1,
+    opacity: isDragging ? 0 : 1,
   };
 
   return (
@@ -131,8 +133,14 @@ export function PropertyForm({ property }: PropertyFormProps) {
 
   const { startUpload } = useUploadThing("propertyImage");
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id as string);
+  };
 
   const handleDragEnd = (event: DragEndEvent) => {
+    setActiveId(null);
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     const oldIndex = formData.images.findIndex((img) => img.url === active.id);
@@ -502,7 +510,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
       {activeTab === "images" && (
         <div className="space-y-6">
           {/* Image Grid */}
-          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
             <SortableContext items={formData.images.map((img) => img.url)} strategy={rectSortingStrategy}>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {formData.images.map((image, index) => (
@@ -538,6 +546,18 @@ export function PropertyForm({ property }: PropertyFormProps) {
             </label>
               </div>
             </SortableContext>
+            <DragOverlay>
+              {activeId ? (
+                <div className="relative aspect-video rounded overflow-hidden shadow-2xl rotate-2 opacity-90">
+                  <Image
+                    src={formData.images.find((img) => img.url === activeId)?.url || ""}
+                    alt="Dragging"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ) : null}
+            </DragOverlay>
           </DndContext>
 
           <p className="text-sm text-gray-500">
