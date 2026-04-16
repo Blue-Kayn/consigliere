@@ -1,16 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
-      video.load();
       video.play().catch((err) => {
         console.log("Video autoplay failed:", err);
       });
@@ -26,10 +24,10 @@ export function HeroVideo() {
         muted
         loop
         playsInline
-        preload="metadata"
-        onLoadedData={() => setVideoReady(true)}
-        className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000"
-        style={{ zIndex: 1, opacity: videoReady ? 1 : 0 }}
+        preload="auto"
+        poster="/images/hero-poster.jpg"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        style={{ zIndex: 1 }}
       >
         <source src="/videos/hero.mp4" type="video/mp4" />
         Your browser does not support the video tag.
