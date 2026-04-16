@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { X, Upload, GripVertical, Loader2 } from "lucide-react";
+import { Reorder } from "framer-motion";
 import { useUploadThing } from "@/lib/uploadthing";
 
 interface PropertyFormData {
@@ -424,31 +425,42 @@ export function PropertyForm({ property }: PropertyFormProps) {
         <div className="space-y-6">
           {/* Image Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {formData.images.map((image, index) => (
-              <div key={index} className="relative aspect-video bg-gray-100 rounded overflow-hidden group">
-                <Image
-                  src={image.url}
-                  alt={image.alt || "Property image"}
-                  fill
-                  className="object-cover"
-                />
-                <button
-                  type="button"
-                  onClick={() => removeImage(index)}
-                  className="absolute top-2 right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            <Reorder.Group
+              axis="y"
+              values={formData.images}
+              onReorder={(newOrder) => setFormData({ ...formData, images: newOrder })}
+              className="contents"
+            >
+              {formData.images.map((image, index) => (
+                <Reorder.Item
+                  key={image.url}
+                  value={image}
+                  className="relative aspect-video bg-gray-100 rounded overflow-hidden group cursor-grab active:cursor-grabbing active:z-10"
                 >
-                  <X size={14} />
-                </button>
-                {index === 0 && (
-                  <span className="absolute bottom-2 left-2 bg-black text-white text-xs px-2 py-1">
-                    HERO
-                  </span>
-                )}
-                <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity cursor-move">
-                  <GripVertical size={16} className="text-white drop-shadow-lg" />
-                </div>
-              </div>
-            ))}
+                  <Image
+                    src={image.url}
+                    alt={image.alt || "Property image"}
+                    fill
+                    className="object-cover pointer-events-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeImage(index)}
+                    className="absolute top-2 right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                  >
+                    <X size={14} />
+                  </button>
+                  {index === 0 && (
+                    <span className="absolute bottom-2 left-2 bg-black text-white text-xs px-2 py-1">
+                      HERO
+                    </span>
+                  )}
+                  <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <GripVertical size={16} className="text-white drop-shadow-lg" />
+                  </div>
+                </Reorder.Item>
+              ))}
+            </Reorder.Group>
 
             {/* Upload Button */}
             <label className={`aspect-video border-2 border-dashed border-gray-300 rounded flex flex-col items-center justify-center transition-colors ${isUploading ? "opacity-50 cursor-wait" : "cursor-pointer hover:border-[var(--gold)]"}`}>
