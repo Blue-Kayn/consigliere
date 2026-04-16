@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, Edit, Trash2, Eye } from "lucide-react";
+import { Plus, Edit, Eye } from "lucide-react";
+import { DeletePropertyButton } from "@/components/admin/DeletePropertyButton";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 
@@ -146,12 +147,7 @@ export default async function PropertiesPage() {
                     >
                       <Edit size={16} />
                     </Link>
-                    <button
-                      className="p-2 hover:bg-gray-100 rounded text-red-600"
-                      title="Delete"
-                    >
-                      <Trash2 size={16} />
-                    </button>
+                    <DeletePropertyButton id={property.id} />
                   </div>
                 </td>
               </tr>
