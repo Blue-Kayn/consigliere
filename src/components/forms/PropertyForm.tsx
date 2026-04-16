@@ -4,7 +4,21 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { X, Upload, GripVertical, Loader2 } from "lucide-react";
-import { Reorder } from "framer-motion";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  useSortable,
+  rectSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { useUploadThing } from "@/lib/uploadthing";
 
 interface PropertyFormData {
@@ -54,6 +68,61 @@ const amenitiesList = [
   "Elevator Access",
 ];
 
+function SortableImage({
+  image,
+  index,
+  onRemove,
+}: {
+  image: { url: string; alt?: string };
+  index: number;
+  onRemove: () => void;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: image.url });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 50 : undefined,
+    opacity: isDragging ? 0.8 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="relative aspect-video bg-gray-100 rounded overflow-hidden group"
+    >
+      <div
+        {...attributes}
+        {...listeners}
+        className="absolute inset-0 cursor-grab active:cursor-grabbing z-[5]"
+      />
+      <Image
+        src={image.url}
+        alt={image.alt || "Property image"}
+        fill
+        className="object-cover pointer-events-none"
+      />
+      <button
+        type="button"
+        onClick={onRemove}
+        className="absolute top-2 right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
+      >
+        <X size={14} />
+      </button>
+      {index === 0 && (
+        <span className="absolute bottom-2 left-2 bg-black text-white text-xs px-2 py-1 z-10">
+          HERO
+        </span>
+      )}
+      <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+        <GripVertical size={16} className="text-white drop-shadow-lg" />
+      </div>
+    </div>
+  );
+}
+
 export function PropertyForm({ property }: PropertyFormProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("basic");
@@ -61,6 +130,15 @@ export function PropertyForm({ property }: PropertyFormProps) {
   const [isUploading, setIsUploading] = useState(false);
 
   const { startUpload } = useUploadThing("propertyImage");
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    const oldIndex = formData.images.findIndex((img) => img.url === active.id);
+    const newIndex = formData.images.findIndex((img) => img.url === over.id);
+    setFormData({ ...formData, images: arrayMove(formData.images, oldIndex, newIndex) });
+  };
 
   const [formData, setFormData] = useState<PropertyFormData>({
     name: property?.name || "",
@@ -424,45 +502,19 @@ export function PropertyForm({ property }: PropertyFormProps) {
       {activeTab === "images" && (
         <div className="space-y-6">
           {/* Image Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Reorder.Group
-              axis="y"
-              values={formData.images}
-              onReorder={(newOrder) => setFormData({ ...formData, images: newOrder })}
-              className="contents"
-            >
-              {formData.images.map((image, index) => (
-                <Reorder.Item
-                  key={image.url}
-                  value={image}
-                  className="relative aspect-video bg-gray-100 rounded overflow-hidden group cursor-grab active:cursor-grabbing active:z-10"
-                >
-                  <Image
-                    src={image.url}
-                    alt={image.alt || "Property image"}
-                    fill
-                    className="object-cover pointer-events-none"
+          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+            <SortableContext items={formData.images.map((img) => img.url)} strategy={rectSortingStrategy}>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {formData.images.map((image, index) => (
+                  <SortableImage
+                    key={image.url}
+                    image={image}
+                    index={index}
+                    onRemove={() => removeImage(index)}
                   />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(index)}
-                    className="absolute top-2 right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                  >
-                    <X size={14} />
-                  </button>
-                  {index === 0 && (
-                    <span className="absolute bottom-2 left-2 bg-black text-white text-xs px-2 py-1">
-                      HERO
-                    </span>
-                  )}
-                  <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <GripVertical size={16} className="text-white drop-shadow-lg" />
-                  </div>
-                </Reorder.Item>
-              ))}
-            </Reorder.Group>
+                ))}
 
-            {/* Upload Button */}
+                {/* Upload Button */}
             <label className={`aspect-video border-2 border-dashed border-gray-300 rounded flex flex-col items-center justify-center transition-colors ${isUploading ? "opacity-50 cursor-wait" : "cursor-pointer hover:border-[var(--gold)]"}`}>
               {isUploading ? (
                 <>
@@ -484,7 +536,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
                 disabled={isUploading}
               />
             </label>
-          </div>
+              </div>
+            </SortableContext>
+          </DndContext>
 
           <p className="text-sm text-gray-500">
             First image will be the hero. Drag to reorder. Recommended size: 1200x800px
