@@ -58,8 +58,8 @@ export async function POST(request: Request) {
     const pricePerNight = property.pricePerNight || 0;
     const subtotal = pricePerNight * nights;
     const cleaningFee = property.cleaningFee || 0;
-    const serviceFee = Math.round(subtotal * 0.1); // 10% service fee
-    const total = subtotal + cleaningFee + serviceFee;
+    const serviceFee = 0;
+    const total = subtotal + cleaningFee;
 
     const booking = await prisma.booking.create({
       data: {

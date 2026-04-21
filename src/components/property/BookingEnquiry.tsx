@@ -34,8 +34,7 @@ export function BookingEnquiry({
     : 5;
 
   const subtotal = (pricePerNight || 0) * nights;
-  const serviceFee = subtotal * 0.1;
-  const total = subtotal + (cleaningFee || 0) + serviceFee;
+  const total = subtotal + (cleaningFee || 0);
 
   const handleSubmit = async () => {
     if (!firstName || !lastName || !email || !phone) return;
@@ -138,10 +137,6 @@ export function BookingEnquiry({
         <div className="flex justify-between text-sm">
           <span>Cleaning fee</span>
           <span>£{cleaningFee?.toLocaleString()}</span>
-        </div>
-        <div className="flex justify-between text-sm">
-          <span>Service fee</span>
-          <span>£{serviceFee.toLocaleString()}</span>
         </div>
         <div className="flex justify-between font-medium pt-3 border-t border-[var(--gray-300)]">
           <span>Total</span>
