@@ -16,7 +16,7 @@ export function HeroVideo() {
   }, []);
 
   return (
-    <section className="min-h-[130vh] sm:min-h-screen relative bg-[#0a0a0a]">
+    <section className="min-h-screen relative bg-[#0a0a0a]">
       {/* Video Background - positioned absolutely behind everything */}
       <video
         ref={videoRef}
@@ -41,7 +41,7 @@ export function HeroVideo() {
 
       {/* Content Container */}
       <div
-        className="relative flex flex-col justify-center items-center text-center px-6 sm:px-8 py-28 sm:py-40 text-white min-h-[130vh] sm:min-h-screen"
+        className="relative flex flex-col justify-center items-center text-center px-6 sm:px-8 py-16 sm:py-40 text-white min-h-screen"
         style={{ zIndex: 3 }}
       >
         <div className="max-w-4xl mx-auto">
