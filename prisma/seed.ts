@@ -83,7 +83,14 @@ async function main() {
   }
   console.log(`Created ${amenities.length} amenities`);
 
-  // Create sample properties
+  console.log("Seeding complete!");
+}
+
+// REMOVED: fake sample properties block
+// Properties should only be created through the admin panel on production.
+// Keeping this comment so the removal is intentional and visible in git history.
+
+/*
   const properties = [
     {
       name: "The Grosvenor Suite",
@@ -255,35 +262,7 @@ Experience the energy of Dubai Marina's waterfront promenade with hundreds of re
       amenityIds: ["air-conditioning", "high-speed-wifi", "smart-tv", "private-pool", "gym-access", "spa-access", "water-views", "private-terrace"],
     },
   ];
-
-  for (const propertyData of properties) {
-    const { images, amenityIds, ...property } = propertyData;
-
-    const created = await prisma.property.upsert({
-      where: { slug: property.slug },
-      update: {},
-      create: {
-        ...property,
-        images: {
-          create: images.map((img, index) => ({
-            url: img.url,
-            alt: img.alt,
-            order: img.order ?? index,
-            isHero: img.isHero ?? false,
-          })),
-        },
-        amenities: {
-          create: amenityIds.map((amenityId) => ({
-            amenityId: amenityId,
-          })),
-        },
-      },
-    });
-    console.log(`Created property: ${created.name}`);
-  }
-
-  console.log("Seeding complete!");
-}
+*/
 
 main()
   .catch((e) => {
