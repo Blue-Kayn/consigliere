@@ -46,9 +46,15 @@ export function Header({ variant = "light" }: HeaderProps) {
           : "bg-white"
       )}
     >
-      <header className="flex justify-between items-center max-w-[1600px] mx-auto px-6 lg:px-16 py-4 lg:py-6">
-        <Link href="/">
+      <header className="relative flex justify-between items-center max-w-[1600px] mx-auto px-6 lg:px-16 py-4 lg:py-6">
+        {/* Desktop: logo left-aligned */}
+        <Link href="/" className="hidden lg:block">
           <Logo color={isDark ? "light" : "dark"} />
+        </Link>
+
+        {/* Mobile: logo absolutely centered */}
+        <Link href="/" className="lg:hidden absolute left-1/2 -translate-x-1/2">
+          <Logo color={isDark ? "light" : "dark"} showText={false} />
         </Link>
 
         {/* Desktop Navigation */}
