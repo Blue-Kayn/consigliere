@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
-import { PropertyCard } from "@/components/property/PropertyCard";
 
 const services = [
   {
@@ -25,54 +23,6 @@ const stats = [
   { number: "0%", label: "Capital Gains Tax" },
   { number: "8-20%", label: "Net Rental Yields", hasDisclaimer: true },
   { number: "10yr", label: "Golden Visa" },
-];
-
-const properties = [
-  {
-    id: "1",
-    slug: "oceanfront-villa",
-    name: "Oceanfront Villa",
-    neighborhood: "Palm Jumeirah",
-    city: "Dubai" as const,
-    bedrooms: 5,
-    bathrooms: 6,
-    sizeSqm: 650,
-    salePrice: 45000000,
-    currency: "AED" as const,
-    listingType: "FOR_SALE" as const,
-    featured: false,
-    images: [{ url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" }],
-  },
-  {
-    id: "2",
-    slug: "burj-vista-penthouse",
-    name: "Burj Vista Penthouse",
-    neighborhood: "Downtown Dubai",
-    city: "Dubai" as const,
-    bedrooms: 4,
-    bathrooms: 5,
-    sizeSqm: 450,
-    salePrice: 18500000,
-    currency: "AED" as const,
-    listingType: "FOR_SALE" as const,
-    featured: false,
-    images: [{ url: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" }],
-  },
-  {
-    id: "3",
-    slug: "chester-square-house",
-    name: "Chester Square House",
-    neighborhood: "Belgravia",
-    city: "London" as const,
-    bedrooms: 6,
-    bathrooms: 5,
-    sizeSqm: 550,
-    salePrice: null,
-    currency: "GBP" as const,
-    listingType: "FOR_SALE" as const,
-    featured: false,
-    images: [{ url: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80" }],
-  },
 ];
 
 export default function BuyPage() {
@@ -161,22 +111,6 @@ export default function BuyPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Properties for Sale */}
-      <section className="py-24 px-8 lg:px-16">
-        <div className="flex justify-between items-end mb-12 max-w-[1400px] mx-auto">
-          <h2 className="text-2xl lg:text-3xl">Properties for Sale</h2>
-          <Link href="/buy/all" className="btn-text">
-            View all →
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1400px] mx-auto">
-          {properties.map((property) => (
-            <PropertyCard key={property.id} property={property} />
-          ))}
         </div>
       </section>
 
